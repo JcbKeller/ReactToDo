@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   context: path.join(__dirname, 'src'),
@@ -18,7 +20,19 @@ module.exports = {
        	  'babel-loader',
         ],
       },
+      {
+	test: /\.css$/,  
+	loader: 'style-loader'
+      }, {  
+	test: /\.css$/,  
+	loader: 'css-loader',  
+	query: {    
+          modules: true,    
+	  localIdentName: '[name]__[local]___[hash:base64:5]'  
+	}
+      }
     ],
+
   },
   resolve: {
     modules: [
@@ -26,3 +40,9 @@ module.exports = {
     ],
   },
 };
+
+// test: /\.css/
+// use: ExtractTextPlugin.extract({
+//     use: 'css-loader',
+//     fallback: 'style-loader'
+// })
